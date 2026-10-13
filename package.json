@@ -1,0 +1,37 @@
+{
+  "name": "rui-show",
+  "version": "0.1.0",
+  "description": "rui-core's documentation and live showcase: a page per component with its props and demos, each demo live on the DOM (ren-dom), Skia (ren-skia) and three.js (ren-three).",
+  "type": "module",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.15"
+  },
+  "scripts": {
+    "pages": "node scripts/pages.mjs",
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs --port 5174",
+    "check": "node scripts/pages.mjs && tsc -p tsconfig.json",
+    "browser": "flock $HOME/.cache/chrome-bench.lock node scripts/browser.mjs",
+    "test": "node scripts/pages.mjs && tsc -p tsconfig.json && node --import ren-core/loader --test test/timers.test.js test/*.test.jsx && node --import ren-core/compiled --test test/*.test.jsx && node scripts/build.mjs && node --test test/serve.check.js"
+  },
+  "dependencies": {
+    "ren-canv": "file:../../../ren-canv/wtree/_repo_",
+    "ren-core": "file:../../../ren-core/wtree/_repo_",
+    "ren-dom": "file:../../../ren-dom/wtree/_repo_",
+    "ren-json": "file:../../../ren-json/wtree/_repo_",
+    "ren-skia": "file:../../../ren-skia/wtree/_repo_",
+    "ren-three": "file:../../../ren-three/wtree/_repo_",
+    "rrx-core": "file:../../../rrx-core/wtree/_repo_",
+    "rui-core": "file:../../../rui-core/wtree/_repo_",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.3",
+    "canvaskit-wasm": "0.40.0",
+    "esbuild": "0.28.2",
+    "happy-dom": "20.14.5",
+    "typescript": "7.0.2"
+  }
+}

@@ -2,7 +2,7 @@
 
 Standing rules for agents working in this checkout.
 
-Read the workspace layer first: `../../../AGENTS.md` and `../../../.ai/config/`
+Read the workspace layer first: [`../../../AGENTS.md`](https://github.com/wiltonlazary/rui/blob/main/AGENTS.md) and [`../../../.ai/config/`](https://github.com/wiltonlazary/rui/tree/main/.ai/config)
 (stability.md first, then javascript.md, design.md, concepts.md,
 resources.md, git.md). Then [README.md](README.md) and [TODO.md](TODO.md).
 

@@ -1,6 +1,8 @@
 # rui-show
 
-[rui-core](../../../rui-core/wtree/_repo_)'s documentation and live
+Live at <https://wiltonlazary.github.io/rui-show/>.
+
+[rui-core](https://github.com/wiltonlazary/rui-core)'s documentation and live
 showcase: a sidebar of pages grouped by task (Foundations, Structure,
 Text, Actions, Entry, Choices, Time, Wayfinding, Layers, Status, Data,
 Charts, Forms, Behavior; the extensions sit with their task, their entry
@@ -179,7 +181,7 @@ npm run serve             # http://127.0.0.1:5174/ (?runtime for the automatic-r
 npm run browser           # headless Chrome, both bundles, every page on every renderer (takes the machine-wide Chrome lock)
 ```
 
-Run node commands under the workspace caps (`../../../.ai/config/resources.md`);
+Run node commands under the workspace caps ([`../../../.ai/config/resources.md`](https://github.com/wiltonlazary/rui/blob/main/.ai/config/resources.md));
 CanvasKit needs `--disable-wasm-trap-handler` under `ulimit -v`. Never run
 Chrome under `ulimit -v`.
 

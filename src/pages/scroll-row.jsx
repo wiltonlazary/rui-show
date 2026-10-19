@@ -17,6 +17,7 @@ export default {
     { name: 'draggable', type: 'boolean', default: 'false', description: 'Dragging the strip scrolls it.' },
     { name: 'previousIcon', type: 'any', description: 'Replaces the start chevron.' },
     { name: 'nextIcon', type: 'any', description: 'Replaces the end chevron.' },
+    { name: 'bars', type: 'boolean | { thin, color, track }', default: 'the renderer’s bar', description: 'As ScrollBox’s: false hides the bar (the chevrons, wheel, touch and drag still scroll it), or its width and colors.' },
     { name: 'children', type: 'any', description: 'The strip’s content, in a row.' },
     { name: 'style props', type: 'm, w, …', description: 'As Box.' },
   ],
@@ -80,6 +81,35 @@ function Demo() {
         </Stack>
       ),
       height: 80,
+    },
+    {
+      title: 'Without its bar',
+      code: `
+function Demo() {
+  return (
+    <Stack gap="xs">
+      <Text size="sm" fg="quiet">No bar: the chevrons, wheel and drag scroll it</Text>
+      <ScrollRow w={400} bars={false} draggable>
+        {TAGS.map(tag => <Badge variant="outline" mr="xs">{tag}</Badge>)}
+      </ScrollRow>
+    </Stack>
+  );
+}`,
+      view: () => (
+        <Stack gap="xs">
+          <Text size="sm" fg="quiet">
+            No bar: the chevrons, wheel and drag scroll it
+          </Text>
+          <ScrollRow w={400} bars={false} draggable>
+            {TAGS.map(tag => (
+              <Badge variant="outline" mr="xs">
+                {tag}
+              </Badge>
+            ))}
+          </ScrollRow>
+        </Stack>
+      ),
+      height: 70,
     },
   ],
 };

@@ -102,6 +102,7 @@ function Demo() {
         <Button onPress={() => $write(count, $read(count) + 1)}>Add one</Button>
         <Button variant="soft" color="red" onPress={() => $write(count, 0)}>Reset</Button>
         <Button disabled>Disabled</Button>
+        <Button variant="ghost" disabled>Ghost, disabled</Button>
         <Button loading>Loading</Button>
       </Row>
       <Text fg="quiet">{() => \`pressed \${$read(count)} times\`}</Text>
@@ -119,6 +120,9 @@ function Demo() {
                 Reset
               </Button>
               <Button disabled>Disabled</Button>
+              <Button variant="ghost" disabled>
+                Ghost, disabled
+              </Button>
               <Button loading>Loading</Button>
             </Row>
             <Text fg="quiet">{() => `pressed ${$read(count)} times`}</Text>

@@ -572,7 +572,8 @@ describe('every demo', () => {
           while (n < d.length && n < k.length && d[n] === k[n]) n++;
           assert.ok(n > 0 && k.length - n < n, `Skia's text begins with the DOM's, to its clip, then the measure's:\n  dom : ${dom.text()}\n  skia: ${skia.text()}`);
         } else if (demo.measured === true) assert.ok(skia.text().startsWith(dom.text()), `the DOM's text begins Skia's:\n  dom : ${dom.text()}\n  skia: ${skia.text()}`);
-        else if (demo.clipped === true) assert.ok(within(letters(skia.text()), letters(dom.text())), `every letter Skia paints is among the DOM's:\n  dom : ${dom.text()}\n  skia: ${skia.text()}`);
+        // An ellipsis cut paints its … on Skia; the DOM draws it outside its text.
+        else if (demo.clipped === true) assert.ok(within(letters(skia.text().replaceAll('…', '')), letters(dom.text())), `every letter Skia paints is among the DOM's:\n  dom : ${dom.text()}\n  skia: ${skia.text()}`);
         else if (demo.unordered === true) assert.deepEqual(words(skia.text()), words(dom.text()), 'the same words, painted in another order');
         else assert.equal(skia.text(), dom.text());
         assert.ok(skia.commands().length > 0, 'Skia painted');

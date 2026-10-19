@@ -15,6 +15,7 @@ const RECIPES = [
   { name: 'Fried rice', tags: ['Under 30 minutes', 'One pot'] },
   { name: 'Garden salad', tags: ['Vegetarian', 'Under 30 minutes'] },
 ];
+const SETTINGS = ['Autoplay', 'Captions', 'Dark mode', 'Data saver', 'Downloads on Wi-Fi only', 'Haptics', 'High contrast', 'Location', 'Notifications', 'Reduced motion', 'Sounds', 'Sync', 'Two-step sign-in', 'Usage reports'];
 
 /** @type {import('../site.js').PageRecord} */
 export default {
@@ -176,6 +177,41 @@ function Demo() {
               </Stack>
             </Drawer>
           </Stack>
+        );
+      },
+      height: 300,
+    },
+    {
+      title: 'A long body scrolls under its header',
+      code: `
+const SETTINGS = ['Autoplay', 'Captions', 'Dark mode', 'Data saver', 'Downloads on Wi-Fi only', 'Haptics', 'High contrast', 'Location', 'Notifications', 'Reduced motion', 'Sounds', 'Sync', 'Two-step sign-in', 'Usage reports'];
+
+function Demo() {
+  const open = $signal($active(), false);
+  return (
+    <>
+      <Button variant="neutral" onPress={() => $write(open, true)}>Settings</Button>
+      <Drawer open={open} onOpenChange={v => $write(open, v)} size={280} title="Settings">
+        <Stack gap="md">{SETTINGS.map(name => <Checkbox label={name} />)}</Stack>
+      </Drawer>
+    </>
+  );
+}`,
+      view: () => {
+        const open = $signal($active(), false);
+        return (
+          <>
+            <Button variant="neutral" onPress={() => $write(open, true)}>
+              Settings
+            </Button>
+            <Drawer open={open} onOpenChange={(/** @type {boolean} */ v) => $write(open, v)} size={280} title="Settings">
+              <Stack gap="md">
+                {SETTINGS.map(name => (
+                  <Checkbox label={name} />
+                ))}
+              </Stack>
+            </Drawer>
+          </>
         );
       },
       height: 300,

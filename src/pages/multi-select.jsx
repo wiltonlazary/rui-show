@@ -7,6 +7,7 @@ import { MultiSelect, Stack, Text } from 'rui-core';
 
 const INSTRUMENTS = ['Drums', 'Bass', 'Keys', 'Guitar'];
 const TOPPINGS = ['Mushrooms', 'Olives', 'Peppers', 'Onions', 'Basil', 'Pineapple', 'Anchovies'];
+const SPICES = ['Allspice', 'Cardamom', 'Cinnamon', 'Clove', 'Cumin', 'Fennel', 'Ginger', 'Mace', 'Nutmeg', 'Paprika', 'Saffron', 'Star anise', 'Sumac', 'Turmeric'];
 
 /** @type {import('../site.js').PageRecord} */
 export default {
@@ -34,6 +35,7 @@ export default {
     { name: 'invalid / required / asterisk', type: 'boolean / boolean / boolean | string | node', description: 'The invalid look without a message; `aria-required` only; the mark after the label (none by default).' },
     { name: 'size / radius / variant / start / end', type: 'as Select', description: 'The field’s look.' },
     { name: 'disabled / readOnly', type: 'boolean', default: 'false', description: 'Locked: no panel, no remove buttons, and neither a press nor the keys open it or pick.' },
+    { name: 'lightbox', type: 'boolean | breakpoint key', default: 'theme.control.lightbox (null: never)', description: 'As Select’s: the options open in a centered lightbox titled by the label, picked and unpicked until its Done, a filter at its top past `control.typeahead` (10) options.' },
   ],
   demos: [
     {
@@ -116,6 +118,17 @@ function Demo() {
         </Stack>
       ),
       height: 240,
+    },
+    {
+      title: 'In a lightbox, picked until Done',
+      code: `
+const SPICES = ['Allspice', 'Cardamom', 'Cinnamon', 'Clove', 'Cumin', 'Fennel', 'Ginger', 'Mace', 'Nutmeg', 'Paprika', 'Saffron', 'Star anise', 'Sumac', 'Turmeric'];
+
+function Demo() {
+  return <MultiSelect w={340} label="Spices in the blend" placeholder="Add spices" data={SPICES} defaultValue={['Cumin', 'Ginger']} lightbox />;
+}`,
+      view: () => <MultiSelect w={340} label="Spices in the blend" placeholder="Add spices" data={SPICES} defaultValue={['Cumin', 'Ginger']} lightbox />,
+      height: 480,
     },
   ],
 };

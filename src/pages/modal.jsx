@@ -10,6 +10,9 @@ const SIZES = ['xs', 'sm', 'md', 'lg'];
 /** The terms a long modal body scrolls through. */
 const TERMS = Array.from({ length: 12 }, (_, i) => `${i + 1}. Each clause of the service terms sits in its own paragraph, so the body grows past the modal’s height and scrolls inside it.`);
 
+/** A form longer than its layer: the modal keeps its height and scrolls with the layer. */
+const ADDRESS = ['Full name', 'Company', 'Street', 'Number', 'Apartment', 'District', 'City', 'State', 'Postal code', 'Country', 'Phone'];
+
 /** @type {import('../site.js').PageRecord} */
 export default {
   id: 'modal',
@@ -189,6 +192,43 @@ function Demo() {
         );
       },
       height: 400,
+    },
+    {
+      title: 'Taller than its layer',
+      code: `
+const ADDRESS = ['Full name', 'Company', 'Street', 'Number', 'Apartment', 'District', 'City', 'State', 'Postal code', 'Country', 'Phone'];
+
+function Demo() {
+  const open = $signal($active(), false);
+  return (
+    <>
+      <Button onPress={() => $write(open, true)}>Edit the address</Button>
+      <Modal open={open} onOpenChange={o => $write(open, o)} title="Shipping address" size="sm">
+        <Stack gap="sm">
+          {ADDRESS.map(field => <TextInput label={field} />)}
+          <Button onPress={() => $write(open, false)}>Save</Button>
+        </Stack>
+      </Modal>
+    </>
+  );
+}`,
+      view: () => {
+        const open = $signal($active(), false);
+        return (
+          <>
+            <Button onPress={() => $write(open, true)}>Edit the address</Button>
+            <Modal open={open} onOpenChange={(/** @type {boolean} */ o) => $write(open, o)} title="Shipping address" size="sm">
+              <Stack gap="sm">
+                {ADDRESS.map(field => (
+                  <TextInput label={field} />
+                ))}
+                <Button onPress={() => $write(open, false)}>Save</Button>
+              </Stack>
+            </Modal>
+          </>
+        );
+      },
+      height: 320,
     },
     {
       title: 'A label editor over its color picker',

@@ -111,8 +111,9 @@ function Demo() {
 - The node check compares each demo's text on the DOM and on Skia. Three
   flags loosen it where happy-dom (no layout) cannot match a canvas, each
   for a stated reason: `measured` (the view changes with its `onResize`
-  size: the DOM's text begins Skia's), `clipped` (a Scroll or a hidden
-  overflow clips text: Skia's letters are among the DOM's; with `measured`,
+  size: the DOM's text begins Skia's), `clipped` (a Scroll, a hidden
+  overflow or a Label's ellipsis clips text: Skia's letters, its ellipses left
+  out, are among the DOM's; with `measured`,
   Skia's text begins with the DOM's, cut at its clip, then what the measure
   adds) and `unordered`
   (the canvas paints a sticky or raised part last: the same words in any
@@ -130,11 +131,11 @@ function Demo() {
 
 | Group | Pages |
 | --- | --- |
-| Foundations | $motion, Colors, Style props, Theme |
+| Foundations | $motion, Colors, Icons, Style props, Theme |
 | Structure | AspectRatio, Box, Center, Container, Divider, Flex, Grid, Panes, Row, ScrollBox, ScrollRow, Shell, Spacer, Stack, Surface, Tiles |
 | Text | Code, DigitRoll, Heading, Highlight, Key, List, Mark, NumberText, Prose, Quote, Snippet, Text, TextAnimate |
 | Actions | Button, Button.Group, CloseButton, CopyButton, FileButton, IconButton, Link, NavToggle, Pressable |
-| Entry | ColorInput, ColorPicker, Dropzone, Editor, FieldGroup, FileInput, Input, JsonArea, MaskInput, NumberInput, PasswordInput, PinInput, Textarea, TextInput |
+| Entry | ColorInput, ColorPicker, CurrencyInput, Dropzone, Editor, FieldGroup, FileInput, Input, JsonArea, MaskInput, NumberInput, PasswordInput, PinInput, Textarea, TextInput |
 | Choices | AlphaSlider, AngleSlider, Autocomplete, Cascader, Checkbox, Chip, Combobox, HueSlider, MultiSelect, PlainSelect, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, Tag, TagBox, TagInput, TreeSelect |
 | Time | AnalogClock, Calendar, DateInput, DatePanel, DateSelect, DateSettings, DateTimeSelect, DayStrip, Gantt, MonthPanel and YearPanel, TimeInput, TimePicker, TimeSlots |
 | Wayfinding | Breadcrumbs, ContextMenu, Launcher, Menu, Menubar, NavItem, Onboarding, Outline, Pagination, Stepper, Tabs, Tree |

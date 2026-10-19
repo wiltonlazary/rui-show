@@ -28,9 +28,10 @@ import { BASE_THEME, themeOf } from 'rui-core';
  *   happy-dom lays nothing out, so the node check asks only that the DOM's text begin Skia's; the browser check lays both out
  * @property {boolean=} unordered the canvases paint some of its text after the rest (a sticky column, raised items): the node
  *   check compares the words the DOM and Skia show in any order
- * @property {boolean=} clipped a Scroll or a hidden overflow clips some of its text: Skia paints only what shows (a box
- *   narrower than a word breaks it across rows), happy-dom lays nothing out and shows it all, so the node check asks
- *   that every letter Skia paints be among the DOM's; with `measured` too, that Skia's text begin with the DOM's, cut at
+ * @property {boolean=} clipped a Scroll, a hidden overflow or a Label's ellipsis clips some of its text: Skia paints only
+ *   what shows (a box narrower than a word breaks it across rows; an ellipsis cuts a line and paints its …, which the
+ *   DOM draws outside its text), happy-dom lays nothing out and shows it all, so the node check asks that every letter
+ *   Skia paints, its ellipses left out, be among the DOM's; with `measured` too, that Skia's text begin with the DOM's, cut at
  *   its clip, then what the measure adds (an Excerpt's control)
  */
 

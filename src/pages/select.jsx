@@ -6,6 +6,7 @@ import { $active } from 'ren-core';
 import { Select, Row, Stack, Text } from 'rui-core';
 
 const CITIES = ['Lisbon', 'Oslo', 'Kyoto', 'Quito'];
+const COUNTRIES = ['Argentina', 'Australia', 'Brazil', 'Canada', 'Chile', 'Germany', 'India', 'Japan', 'Kenya', 'Mexico', 'Norway', 'Portugal', 'South Africa', 'United Kingdom'];
 
 /** @type {import('../site.js').PageRecord} */
 export default {
@@ -43,6 +44,7 @@ export default {
     { name: 'popover', type: 'Combobox props', description: 'The panel’s placement and look (`at`, `shadow`, `portal`, …).' },
     { name: 'open / defaultOpen', type: 'boolean', description: 'The panel’s state, controlled or at first.' },
     { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called as the panel opens and closes.' },
+    { name: 'lightbox', type: 'boolean | breakpoint key', default: 'theme.control.lightbox (null: never)', description: 'The options open in a centered lightbox titled by the label, always or below a breakpoint (`sm`, followed as the viewport changes): the field is pressed rather than typed in, and a filter tops the list past `control.typeahead` (10) options, or when `searchable`.' },
   ],
   demos: [
     {
@@ -149,6 +151,30 @@ function Demo() {
         );
       },
       height: 180,
+      // the Meal field cuts its placeholder with an ellipsis
+      clipped: true,
+    },
+    {
+      title: 'In a lightbox, as on a phone',
+      code: `
+const COUNTRIES = ['Argentina', 'Australia', 'Brazil', 'Canada', 'Chile', 'Germany', 'India', 'Japan', 'Kenya', 'Mexico', 'Norway', 'Portugal', 'South Africa', 'United Kingdom'];
+
+function Demo() {
+  return (
+    <Row align="start">
+      <Select w={240} label="Country" placeholder="Choose a country" data={COUNTRIES} lightbox />
+      <Select w={120} label="Narrow" data={COUNTRIES} defaultValue="United Kingdom" lightbox />
+    </Row>
+  );
+}`,
+      view: () => (
+        <Row align="start">
+          <Select w={240} label="Country" placeholder="Choose a country" data={COUNTRIES} lightbox />
+          <Select w={120} label="Narrow" data={COUNTRIES} defaultValue="United Kingdom" lightbox />
+        </Row>
+      ),
+      height: 440,
+      clipped: true,
     },
   ],
 };

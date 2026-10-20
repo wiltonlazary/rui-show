@@ -21,13 +21,14 @@ import {
   MailIcon,
   ExitIcon,
   ShieldIcon,
+  SettingsIcon,
   IconButton,
   Row,
   Stack,
   Text,
 } from 'rui-core';
 
-const ICONS = { CloseIcon, CheckIcon, ChevronIcon, BackIcon, ForwardIcon, DotsIcon, CopyIcon, ShareIcon, CameraIcon, TagIcon, TrashIcon, EditIcon, EyeIcon, ImageIcon, BanIcon, UndoIcon, MergeIcon, MailIcon, ExitIcon, ShieldIcon };
+const ICONS = { CloseIcon, CheckIcon, ChevronIcon, BackIcon, ForwardIcon, DotsIcon, CopyIcon, ShareIcon, CameraIcon, TagIcon, TrashIcon, EditIcon, EyeIcon, ImageIcon, BanIcon, UndoIcon, MergeIcon, MailIcon, ExitIcon, ShieldIcon, SettingsIcon };
 
 /** @type {import('../site.js').PageRecord} */
 export default {
@@ -48,7 +49,7 @@ export default {
     {
       title: 'Every icon',
       code: `
-const ICONS = { CloseIcon, CheckIcon, ChevronIcon, BackIcon, ForwardIcon, DotsIcon, CopyIcon, ShareIcon, CameraIcon, TagIcon, TrashIcon, EditIcon, EyeIcon, ImageIcon, BanIcon, UndoIcon, MergeIcon, MailIcon, ExitIcon, ShieldIcon };
+const ICONS = { CloseIcon, CheckIcon, ChevronIcon, BackIcon, ForwardIcon, DotsIcon, CopyIcon, ShareIcon, CameraIcon, TagIcon, TrashIcon, EditIcon, EyeIcon, ImageIcon, BanIcon, UndoIcon, MergeIcon, MailIcon, ExitIcon, ShieldIcon, SettingsIcon };
 
 function Demo() {
   return (

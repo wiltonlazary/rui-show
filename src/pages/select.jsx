@@ -3,7 +3,7 @@
 
 import { $signal, $read, $write } from 'rrx-core';
 import { $active } from 'ren-core';
-import { Select, Row, Stack, Text } from 'rui-core';
+import { Select, Row, Stack, Text, SettingsIcon } from 'rui-core';
 
 const CITIES = ['Lisbon', 'Oslo', 'Kyoto', 'Quito'];
 const COUNTRIES = ['Argentina', 'Australia', 'Brazil', 'Canada', 'Chile', 'Germany', 'India', 'Japan', 'Kenya', 'Mexico', 'Norway', 'Portugal', 'South Africa', 'United Kingdom'];
@@ -15,7 +15,7 @@ export default {
   title: 'Select',
   description: 'One value from a list of options in a panel: data as strings, `{ value, label, disabled }` or groups `{ label, options }`, chosen by a press or the keyboard (the arrows, Enter; Escape closes). `searchable` turns the field into a search.',
   props: [
-    { name: 'data', type: 'string[] | { value, label, disabled }[] | { label, options }[]', description: 'The options, or groups of them.' },
+    { name: 'data', type: 'string[] | { value, label, disabled, action, icon }[] | { label, options }[]', description: 'The options, or groups of them. An option with `action: true` does something rather than stand for a value (a list’s “Manage…”): drawn apart, under a rule, as a soft button with its `icon`, and chosen as any option.' },
     { name: 'value', type: 'string | null | (() => string | null)', description: 'Controlled: the chosen value (with `onChange`).' },
     { name: 'defaultValue', type: 'string | null', default: 'null', description: 'Uncontrolled: the value at first.' },
     { name: 'onChange', type: '(value: string | null) => void', description: 'Called with the new value.' },
@@ -175,6 +175,43 @@ function Demo() {
       ),
       height: 440,
       clipped: true,
+    },
+    {
+      title: 'An action under the options',
+      code: `
+function Demo() {
+  const list = $signal($active(), 'Groceries');
+  const managed = $signal($active(), 0);
+  const data = ['Groceries', 'Hardware', 'Pharmacy', { value: 'manage', label: 'Manage lists…', action: true, icon: SettingsIcon }];
+  return (
+    <Stack gap="sm">
+      <Select w={260} label="Shopping list" data={data} value={list} deselectable={false}
+        onChange={v => (v === 'manage' ? $write(managed, $read(managed) + 1) : $write(list, v))} />
+      <Text size="sm" fg="quiet">{() => \`list: \${$read(list)}, managed \${$read(managed)} times\`}</Text>
+    </Stack>
+  );
+}`,
+      view: () => {
+        const list = $signal($active(), /** @type {string | null} */ ('Groceries'));
+        const managed = $signal($active(), 0);
+        const data = ['Groceries', 'Hardware', 'Pharmacy', { value: 'manage', label: 'Manage lists…', action: true, icon: SettingsIcon }];
+        return (
+          <Stack gap="sm">
+            <Select
+              w={260}
+              label="Shopping list"
+              data={data}
+              value={list}
+              deselectable={false}
+              onChange={(/** @type {string | null} */ v) => (v === 'manage' ? $write(managed, $read(managed) + 1) : $write(list, v))}
+            />
+            <Text size="sm" fg="quiet">
+              {() => `list: ${$read(list)}, managed ${$read(managed)} times`}
+            </Text>
+          </Stack>
+        );
+      },
+      height: 260,
     },
   ],
 };

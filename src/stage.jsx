@@ -198,6 +198,8 @@ export function Orbit(props) {
       <directionalLight position={[4, 6, 8]} intensity={1.4} />
       <mesh
         name="backdrop"
+        // dragged to orbit, not pressed: a grab, not the renderer's hand
+        cursor="grab"
         onPointerDown={(/** @type {any} */ e) => (drag = { x: e.native?.clientX ?? 0, y: e.native?.clientY ?? 0, yaw: $read(yaw), pitch: $read(pitch) })}
         onPointerMove={(/** @type {any} */ e) => {
           // Released over the plane, the backdrop heard no pointerup: no button held ends the drag.

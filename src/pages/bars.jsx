@@ -1,5 +1,8 @@
 // Bars (rui-core/charts): named bars by their share of the largest.
 
+import { $signal, $read, $write } from 'rrx-core';
+import { $active } from 'ren-core';
+import { Stack, Text } from 'rui-core';
 import { Bars } from 'rui-core/charts';
 
 const PAGES = [
@@ -24,6 +27,7 @@ export default {
     { name: 'track', type: 'boolean', default: 'true', description: 'The unfilled part of each track, in the page’s track role.' },
     { name: 'color', type: 'string', default: 'theme.accent', description: 'The fills’ color (an item’s own `color` wins); no text sits on a fill, so any color reads.' },
     { name: 'format / unit', type: '(value) => string / string', description: 'How values read.' },
+    { name: 'onPress', type: '(item, index) => void', description: 'Each item is pressed (a click, Enter or Space): it takes the focus, named by its label and value, with the page’s hover tint under the pointer.' },
     { name: 'w', type: 'number', default: 'the box’s width', description: 'The width.' },
   ],
   demos: [
@@ -76,6 +80,31 @@ function Demo() {
         />
       ),
       height: 150,
+    },
+    {
+      title: 'Pressed to open a page',
+      code: `
+function Demo() {
+  const opened = $signal($active(), null);
+  return (
+    <Stack gap="sm">
+      <Bars w={560} data={PAGES} format={v => v.toLocaleString('en-US')} onPress={item => $write(opened, item.label)} />
+      <Text size="sm" fg="quiet">{() => ($read(opened) === null ? 'Press a page, or Tab to one and press Enter' : \`Opened \${$read(opened)}\`)}</Text>
+    </Stack>
+  );
+}`,
+      view: () => {
+        const opened = $signal($active(), /** @type {string | null} */ (null));
+        return (
+          <Stack gap="sm">
+            <Bars w={560} data={PAGES} format={(/** @type {number} */ v) => v.toLocaleString('en-US')} onPress={(/** @type {{ label: string }} */ item) => $write(opened, item.label)} />
+            <Text size="sm" fg="quiet">
+              {() => ($read(opened) === null ? 'Press a page, or Tab to one and press Enter' : `Opened ${$read(opened)}`)}
+            </Text>
+          </Stack>
+        );
+      },
+      height: 330,
     },
   ],
 };

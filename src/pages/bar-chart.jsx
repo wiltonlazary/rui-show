@@ -1,6 +1,8 @@
 // BarChart (rui-core/charts): grouped, stacked, across, and a cascade.
 
-import { Stack } from 'rui-core';
+import { $signal, $read, $write } from 'rrx-core';
+import { $active } from 'ren-core';
+import { Stack, Text } from 'rui-core';
 import { BarChart } from 'rui-core/charts';
 import { VISITS, CHANNELS } from '../chart-data.js';
 import { CARTESIAN } from '../chart-props.js';
@@ -78,6 +80,31 @@ function Demo() {
 }`,
       view: () => <BarChart w={640} h={240} data={BUDGET} category="step" kind="cascade" series={[{ key: 'Amount', color: 'teal' }]} values />,
       height: 270,
+    },
+    {
+      title: 'Choosing a day',
+      code: `
+function Demo() {
+  const day = $signal($active(), null);
+  return (
+    <Stack gap="sm">
+      <BarChart w={640} h={240} data={VISITS} category="day" series={CHANNELS} onSelect={(index, row) => $write(day, row.day)} />
+      <Text size="sm" fg="quiet">{() => ($read(day) === null ? 'Press a day, or focus the chart and walk it with the arrows' : \`Chosen: \${$read(day)}\`)}</Text>
+    </Stack>
+  );
+}`,
+      view: () => {
+        const day = $signal($active(), /** @type {string | null} */ (null));
+        return (
+          <Stack gap="sm">
+            <BarChart w={640} h={240} data={VISITS} category="day" series={CHANNELS} onSelect={(/** @type {number} */ index, /** @type {any} */ row) => $write(day, row.day)} />
+            <Text size="sm" fg="quiet">
+              {() => ($read(day) === null ? 'Press a day, or focus the chart and walk it with the arrows' : `Chosen: ${$read(day)}`)}
+            </Text>
+          </Stack>
+        );
+      },
+      height: 300,
     },
   ],
 };

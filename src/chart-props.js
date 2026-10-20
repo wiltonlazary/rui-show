@@ -18,5 +18,6 @@ export const CARTESIAN = [
   { name: 'references', type: '{ x?, y?, label?, color?, dash?, at? }[]', description: 'Lines across the plot at a value or a category (orange by default); `at` places the label: a y line at \'start\' or \'end\', an x line at \'top\' or \'bottom\'.' },
   { name: 'values', type: 'boolean | { at, color, fontSize }', description: 'Each point’s value over it.' },
   { name: 'format / unit', type: '(value) => string / string', description: 'How values read on the axis and in the tooltip.' },
+  { name: 'onSelect', type: '(index: number, row) => void', description: 'Makes its categories chosen: a press on one, or, the chart focused, ← and → (↑ ↓, Home, End) walk them with their tooltip and Enter or Space chooses the one shown.' },
   { name: 'w / h', type: 'number', default: 'the box’s width / sizes.box.chart (300)', description: 'The size; without `w` it follows its box (`onResize`).' },
 ];

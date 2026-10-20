@@ -54,6 +54,8 @@ export default {
     { name: 'maxHeight', type: 'number | string', description: 'Its greatest height (ScrollBox.Fit: as high as its content up to this).' },
     { name: 'axis', type: "'y' | 'x' | 'both'", default: "'y'", description: 'The way it scrolls: down, across, or both.' },
     { name: 'onScroll', type: '(position: { x: number, y: number }) => void', description: 'Hears the scroll position: the offsets across and down.' },
+    { name: 'onEnd', type: '() => void | Promise<unknown>', description: 'An endless list’s next page: called while the scroll down is within `endGap` of its end, after a scroll and as the box or its content changes size, at most once a frame; a promise it returns has the end checked again once it settles.' },
+    { name: 'endGap', type: 'number', default: 'spacing.lg', description: 'How near the end, in pixels, `onEnd` is called.' },
     { name: 'ref', type: '((node) => void) | Signal', description: 'Gets the Scroll primitive (its `scrollTop` and `scrollLeft` read and set the position).' },
     { name: 'gutter', type: 'boolean', default: 'false', description: 'Keeps room for a scrollbar (spacing xs), so it does not cover content.' },
     {
@@ -234,6 +236,46 @@ function Demo() {
         );
       },
       height: 330,
+      clipped: true,
+    },
+    {
+      title: 'An endless list, a page at a time',
+      code: `
+function Demo() {
+  const count = $signal($active(), 12);
+  const next = () => {
+    if ($read(count) < 60) $write(count, $read(count) + 12);
+  };
+  return (
+    <Stack gap="xs">
+      <Text size="sm" fg="quiet">{() => \`\${$read(count)} of 60 orders\`}</Text>
+      <Surface bordered w={320}>
+        <ScrollBox h={200} p="xs" onEnd={next}>
+          <Stack gap="xs">{() => Array.from({ length: $read(count) }, (_, i) => <Text size="sm">Order #{1001 + i}</Text>)}</Stack>
+        </ScrollBox>
+      </Surface>
+    </Stack>
+  );
+}`,
+      view: () => {
+        const count = $signal($active(), 12);
+        const next = () => {
+          if ($read(count) < 60) $write(count, $read(count) + 12);
+        };
+        return (
+          <Stack gap="xs">
+            <Text size="sm" fg="quiet">
+              {() => `${$read(count)} of 60 orders`}
+            </Text>
+            <Surface bordered w={320}>
+              <ScrollBox h={200} p="xs" onEnd={next}>
+                <Stack gap="xs">{() => Array.from({ length: $read(count) }, (_, i) => <Text size="sm">Order #{1001 + i}</Text>)}</Stack>
+              </ScrollBox>
+            </Surface>
+          </Stack>
+        );
+      },
+      height: 250,
       clipped: true,
     },
   ],

@@ -12,7 +12,7 @@ import { $active, Root, Props, Pending, Recover, View } from 'ren-core';
 import { $dom } from 'ren-dom';
 import { $skia } from 'ren-skia';
 import { $three } from 'ren-three';
-import { Rui, Surface, Text, BASE_THEME } from 'rui-core';
+import { Rui, Surface, Text, BASE_THEME, themeOf } from 'rui-core';
 import { Env, loading } from './env.js';
 import { settled, themeFor, rootId } from './site.js';
 
@@ -31,8 +31,18 @@ export function Themed(props) {
   const given = () => (props.settings === undefined ? $lookup(Props) : props.settings());
   const settings = () => settled(given());
   const Demo = props.view;
+  // The demo's own theme overrides, over the accent's theme: made once per accent.
+  /** @type {Map<string, any>} */
+  const own = new Map();
+  const theme = () => {
+    const accent = settings().accent;
+    const overrides = given()?.theme;
+    if (overrides == null) return themeFor(accent);
+    if (!own.has(accent)) own.set(accent, themeOf(overrides, themeFor(accent)));
+    return own.get(accent);
+  };
   return (
-    <Rui theme={() => themeFor(settings().accent)} scheme={() => settings().scheme}>
+    <Rui theme={theme} scheme={() => settings().scheme}>
       <View onResize={(/** @type {any} */ e) => e.height > 0 && given()?.grown?.(e.height)}>
         <Surface radius={0} p="md" w={() => props.width ?? given()?.width} minHeight={props.height} style={{ overflow: 'hidden' }}>
           <Demo />
@@ -48,7 +58,7 @@ const failed = what => (/** @type {Error} */ error) => <Text fg="red">{`${what} 
 /**
  * One view on one renderer, in a root named for the demo (`name`,
  * `<page>-<index>`) and the renderer.
- * @param {{ view: () => any, name: string, renderer: RendererId, width: () => number, height: number, settings: () => Settings }} props
+ * @param {{ view: () => any, name: string, renderer: RendererId, width: () => number, height: number, settings: () => Settings, theme?: Record<string, any> }} props
  */
 export function Stage(props) {
   const env = $lookup(Env);
@@ -63,7 +73,7 @@ export function Stage(props) {
     if (next !== $untrack(R, () => $read(tall))) $write(tall, next);
   };
   // The demo root's props: the settings, the stage's width and the report of its height, read in that root.
-  const root = () => ({ ...settings(), width: width(), grown });
+  const root = () => ({ ...settings(), width: width(), grown, theme: props.theme });
   const high = () => $read(tall);
   switch (props.renderer) {
     case 'skia':

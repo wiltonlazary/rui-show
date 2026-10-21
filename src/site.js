@@ -24,6 +24,8 @@ import { BASE_THEME, themeOf } from 'rui-core';
  * @property {() => any} view a component: the example itself
  * @property {number=} height the demo's least height on every renderer, in CSS pixels (160 by default): it grows with what
  *   it holds
+ * @property {Record<string, any>=} theme theme overrides for this demo, over the page's accent (`themeOf`): a setting it
+ *   shows, such as `control.textMenu`
  * @property {boolean=} measured the view changes with its measured size (`onResize`: an Excerpt's control, a chart's axes):
  *   happy-dom lays nothing out, so the node check asks only that the DOM's text begin Skia's; the browser check lays both out
  * @property {boolean=} unordered the canvases paint some of its text after the rest (a sticky column, raised items): the node

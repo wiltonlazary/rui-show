@@ -67,7 +67,7 @@ export function PageView(props) {
             </Box>
             <Divider />
             <View data-demo={String(i)} data-renderer={() => $read(renderer)} onResize={e => e.width > 0 && $write(width, Math.floor(e.width))}>
-              {() => <Stage view={demo.view} name={`${page.id}-${i}`} renderer={$read(renderer)} width={() => $read(width)} height={demo.height ?? HEIGHT} settings={props.settings} />}
+              {() => <Stage view={demo.view} theme={demo.theme} name={`${page.id}-${i}`} renderer={$read(renderer)} width={() => $read(width)} height={demo.height ?? HEIGHT} settings={props.settings} />}
             </View>
             <Divider />
             <Under demo={demo} />

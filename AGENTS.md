@@ -35,4 +35,4 @@ published, depending on the sibling checkouts through `file:` links.
   `npm run browser` (headless Chrome, under the machine-wide lock, never
   under `ulimit -v`) before claiming a change works in a browser.
 - Build output goes to `artifact/dist` (the ignored link to
-  `../../build/_repo__0.1.0`); scratch goes to `artifact/tmp/<task>/`.
+  `../../build/_repo__0.1.12`); scratch goes to `artifact/tmp/<task>/`.

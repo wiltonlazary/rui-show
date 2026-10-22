@@ -162,6 +162,31 @@ describe('the shell', () => {
     assert.ok(page.text().includes('One component, three renderers'));
   });
 
+  it('lists every repository of the family in the home page’s GitHub menu, each opening its page', t => {
+    const page = open(App, { t });
+    /** @type {any[][]} */
+    const opened = [];
+    page.window.open = /** @type {any} */ ((/** @type {any[]} */ ...args) => (opened.push(args), null));
+    // A press as a browser sends it.
+    const press = (/** @type {any} */ node) => {
+      const at = { bubbles: true, cancelable: true, button: 0, buttons: 1, pointerId: 1 };
+      node.dispatchEvent(new page.window.PointerEvent('pointerdown', at));
+      node.dispatchEvent(new page.window.PointerEvent('pointerup', { ...at, buttons: 0 }));
+      node.dispatchEvent(new page.window.MouseEvent('click', { bubbles: true, cancelable: true }));
+      page.flush();
+    };
+    press(page.action('GitHub'));
+    const items = () => page.all('[role="menuitem"]');
+    const names = ['rui', 'rrx-core', 'ren-core', 'ren-dom', 'ren-canv', 'ren-skia', 'ren-three', 'ren-html', 'ren-json', 'rui-core', 'ren-show', 'rui-show', 'ren-bench'];
+    assert.deepEqual(
+      items().map(i => i.querySelector('[data-ren="Label"]')?.textContent),
+      names,
+    );
+    for (const group of ['Workspace', 'Libraries', 'Applications', 'Tooling']) assert.ok(page.document.body.textContent.includes(group), `the ${group} section`);
+    press(items()[names.indexOf('rui-core')]);
+    assert.deepEqual(opened, [['https://github.com/wiltonlazary/rui-core', '_blank', 'noopener,noreferrer']]);
+  });
+
   it('opens every page, disposing the page it leaves', async t => {
     const page = open(App, { t });
     for (const p of pages) {

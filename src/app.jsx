@@ -282,7 +282,7 @@ function Shell(props) {
           <Container size="md" py={() => ($read(phone) ? 'md' : 'xl')} px={() => ($read(phone) ? 'sm' : 'md')} w="100%">
             {() => {
               const p = $read(current);
-              if (p === null) return <Home pages={pages} go={go} settings={() => $read(settings)} />;
+              if (p === null) return <Home pages={pages} go={go} settings={() => $read(settings)} open={url => void page?.open?.(url, '_blank', 'noopener,noreferrer')} />;
               return <PageView page={p} renderer={renderer} use={props.use} settings={() => $read(settings)} previous={at(-1)} next={at(1)} go={go} phone={() => $read(phone)} />;
             }}
           </Container>

@@ -1,11 +1,13 @@
-// The home page: what rui is, the renderer idea (one component, three
-// renderers, live side by side) and the groups of pages.
+// The home page: what rui is, a menu of the family's repositories on
+// GitHub, the renderer idea (one component, three renderers, live side by
+// side) and the groups of pages.
 
 import { $signal, $read, $write } from 'rrx-core';
 import { $active, View } from 'ren-core';
-import { Surface, Stack, Row, Tiles, Heading, Text, Button, Pressable } from 'rui-core';
+import { Surface, Stack, Row, Tiles, Heading, Text, Button, Pressable, Menu } from 'rui-core';
 import { GROUPS } from './site.js';
 import { Stage } from './stage.jsx';
+import { REPOS, repoUrl } from './repos.js';
 
 /** @typedef {import('./site.js').PageRecord} PageRecord */
 /** @typedef {import('./site.js').Settings} Settings */
@@ -34,13 +36,50 @@ export function Sample() {
 /** The sample's width and height on each renderer. */
 const SIZE = { width: 280, height: 150 };
 
-/** @param {{ pages: PageRecord[], go: (p: PageRecord | null) => void, settings: () => Settings }} props */
+/**
+ * Every repository of the family, grouped; choosing one opens its page.
+ * @param {{ open: (url: string) => void }} props
+ */
+export function Repos(props) {
+  return (
+    <Menu width={300} at="bottom-end">
+      <Menu.Trigger>
+        <Button variant="neutral" size="sm">
+          GitHub
+        </Button>
+      </Menu.Trigger>
+      <Menu.Panel>
+        {REPOS.map((group, i) => [
+          i === 0 ? null : <Menu.Divider />,
+          <Menu.Label>{group.title}</Menu.Label>,
+          group.repos.map(repo => (
+            <Menu.Item
+              onPress={() => props.open(repoUrl(repo.name))}
+              end={
+                <Text size="xs" fg="quiet">
+                  {repo.what}
+                </Text>
+              }
+            >
+              {repo.name}
+            </Menu.Item>
+          )),
+        ])}
+      </Menu.Panel>
+    </Menu>
+  );
+}
+
+/** @param {{ pages: PageRecord[], go: (p: PageRecord | null) => void, settings: () => Settings, open: (url: string) => void }} props */
 export function Home(props) {
   return (
     <View role="article" data-page="home" data-demos="3">
       <Stack gap="xl">
         <Stack gap="sm">
-          <Heading level={1}>rui</Heading>
+          <Row justify="between" gap="sm">
+            <Heading level={1}>rui</Heading>
+            <Repos open={props.open} />
+          </Row>
           <Text size="lg" fg="quiet">
             rui-core is a set of components, hooks and extensions built on ren-core's portable primitives. It never touches the DOM: the same component renders on ren-dom (the browser lays it out), on a Skia canvas (ren-skia) and in a three.js scene (ren-three), where ren-canv lays it out with Taffy and paints it.
           </Text>

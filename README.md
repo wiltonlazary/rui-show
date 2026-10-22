@@ -31,8 +31,11 @@ root's storage (`ren:rui-show:*`).
 The shell itself is written with rui-core (Surface, Row, Stack, Container,
 Heading, Text, Button, Pressable, TextInput for the search, NavItem for
 the sidebar, Launcher for Ctrl K, Table and Code for the props,
-Rui, and Snippet for the code under each demo) and rendered
-by ren-dom in the `rui-show` root.
+Rui, Snippet for the code under each demo, and Menu for the home page's
+GitHub menu) and rendered by ren-dom in the `rui-show` root. The GitHub
+menu lists every repository of the family (`src/repos.js`), grouped as the
+workspace, the libraries, the applications and the tooling; choosing one
+opens its page in a new tab.
 
 On a phone or a narrow window (below the theme's `md` breakpoint, 60em, as `$fits`
 reads it) the header keeps the brand and the scheme, and a NavToggle opens the
@@ -158,7 +161,8 @@ them (its default loader fetches the source).
 | `src/main.jsx` | the browser entry: the `rui-show` root, CanvasKit, three.js and the fonts loaded on first use, with ren-canv's `taffy.wasm` (`loadLayout`) and `harfbuzz.wasm` (`loadShaper`) loaded together before a canvas renders |
 | `src/app.jsx` | the shell: header (search, scheme, accent), sidebar (a Drawer on a phone), the current page |
 | `src/page.jsx` | a component's page: renderer switch, demos with their code or data (`dataOf`, through ren-json), props table, previous and next |
-| `src/home.jsx` | the home page (First view): what rui is, one component on three renderers, the groups by task |
+| `src/home.jsx` | the home page (First view): what rui is, the GitHub menu, one component on three renderers, the groups by task |
+| `src/repos.js` | the family's repositories on GitHub, grouped, as the GitHub menu lists them |
 | `src/stage.jsx` | a view on a renderer, in a root of its own, themed by the settings (`Stage`, `Themed`) |
 | `src/site.js` | the page record's types, the groups, the renderers, the settings and themes |
 | `src/env.js` | `Env`: what the page loads (CanvasKit, three.js, the fonts), as an rrx-core context |

@@ -1,0 +1,86 @@
+/* rui-show's page: the viewport for the shell and the demo stages. Every
+   color is rui-core's theme, set by the shell as --rui-* properties on the
+   root element. */
+
+html,
+body,
+#app,
+[data-ren-root='rui-show'] {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: var(--rui-body, #fff);
+  color: var(--rui-text, #000);
+  font-family: system-ui, 'Segoe UI', 'DejaVu Sans', sans-serif;
+  overflow: hidden;
+}
+[data-demo] {
+  overflow-x: auto;
+}
+[data-demo] canvas {
+  display: block;
+}
+
+/* Printing: the page's whole content, on as many sheets as it takes. The
+   shell fits the viewport (each box down to the content as high as it and
+   the content scrolling inside), so its heights are released and nothing
+   clips; the banner, the sidebar, their rules and the skip link stay off
+   paper. The shell's sizes are inline styles, hence !important. */
+@media print {
+  html,
+  body,
+  #app,
+  #app :has([role='main']),
+  [role='main'] {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  /* A demo's stage takes the width it measured on the screen, and printing
+     measures nothing again: released to the sheet's (a DOM Surface lays out
+     again, a canvas scales down). */
+  [data-demo] {
+    overflow: visible !important;
+  }
+  [data-demo] [data-ren-root] > [data-ren='View'] > [data-ren='View'] {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+  [data-demo] canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  /* A code block: its lines wrapped inside it, as high as they are. */
+  [data-ren='Scroll']:has(> [data-ren='View'][role='code']) {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  [data-ren='View'][role='code'],
+  [data-ren='View'][role='code'] > [data-ren='View'] {
+    align-self: stretch !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+  }
+  [data-ren='View'][role='code'] [data-ren='Label'] {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+  }
+  /* A table's text, its code too (a prop's type, its default), wraps
+     anywhere on paper, where a line cannot scroll: the columns fit the
+     sheet. */
+  [role='table'] [data-ren='Label'] {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+  }
+  [role='banner'],
+  [role='banner'] + [aria-hidden='true'],
+  :has(+ [role='banner']),
+  [data-ren='Scroll']:not([role='main']):has([role='navigation']),
+  [data-ren='Scroll']:not([role='main']):has([role='navigation']) + [aria-hidden='true'] {
+    display: none !important;
+  }
+}

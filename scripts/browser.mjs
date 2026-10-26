@@ -23,7 +23,7 @@
 //   npm run browser -- [--only compiled|runtime] [--pages button,text] [--renderers dom,skia]
 //
 // Run scripts/build.mjs first. `npm run browser` takes the machine-wide
-// Chrome lock (flock "$HOME/.cache/chrome-bench.lock" node scripts/browser.mjs):
+// Chrome lock (flock -w 1800 "$HOME/.cache/chrome-bench.lock" node scripts/browser.mjs):
 // only one Chrome runs at a time; never nest it in another
 // flock. Never under ulimit -v. To stop a run, signal the node process
 // (SIGINT or SIGTERM): it stops Chrome's group and removes its folders.

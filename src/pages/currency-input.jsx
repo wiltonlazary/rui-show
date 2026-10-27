@@ -16,7 +16,8 @@ export default {
     { name: 'display', type: "'symbol' | 'narrowSymbol' | 'code' | 'name' | 'none'", default: "'symbol'", description: 'How the currency shows: R$, $, BRL, reais brasileiros, or nothing. A name follows the amount (1 real, 2 reais).' },
     { name: 'locale', type: 'string', default: 'the platform’s', description: 'A BCP 47 tag (`pt-BR`): the currency’s side and spacing, and the group and decimal marks.' },
     { name: 'decimals', type: 'number', default: 'the currency’s', description: 'The most decimal digits: 2 for BRL, USD and EUR, 0 for JPY.' },
-    { name: 'NumberInput props', type: 'value, onChange, min, max, step, groupMark, fixedDecimals, …', description: 'As NumberInput; the currency sets `prefix` and `suffix`.' },
+    { name: 'fixedDecimals', type: 'boolean', default: 'true', description: 'The decimals always written out (R$ 12,50); false: as the number is (R$ 12,5).' },
+    { name: 'NumberInput props', type: 'value, onChange, min, max, step, groupMark, …', description: 'As NumberInput; the currency sets `prefix` and `suffix`.' },
     { name: 'currencyAffixes(currency, locale, display, amount?)', type: '{ prefix, suffix }', description: 'The text the locale writes before and after an amount (`amount`, 2 by default, picks a name’s plural), its spaces included.' },
     { name: 'currencyDecimals(currency)', type: 'number', description: 'How many decimals the currency takes.' },
   ],
@@ -28,13 +29,13 @@ function Demo() {
   return (
     <Stack gap="sm">
       <Row fill align="start">
-        <CurrencyInput label="Symbol" currency="BRL" locale="pt-BR" groupMark fixedDecimals defaultValue={1249.9} />
-        <CurrencyInput label="Code" currency="BRL" locale="pt-BR" display="code" groupMark fixedDecimals defaultValue={1249.9} />
-        <CurrencyInput label="None" currency="BRL" locale="pt-BR" display="none" groupMark fixedDecimals defaultValue={1249.9} />
+        <CurrencyInput label="Symbol" currency="BRL" locale="pt-BR" groupMark defaultValue={1249.9} />
+        <CurrencyInput label="Code" currency="BRL" locale="pt-BR" display="code" groupMark defaultValue={1249.9} />
+        <CurrencyInput label="None" currency="BRL" locale="pt-BR" display="none" groupMark defaultValue={1249.9} />
       </Row>
       <Row fill align="start">
-        <CurrencyInput label="Narrow symbol" currency="USD" locale="pt-BR" display="narrowSymbol" fixedDecimals defaultValue={12.5} />
-        <CurrencyInput label="Name" currency="BRL" locale="pt-BR" display="name" fixedDecimals defaultValue={2} />
+        <CurrencyInput label="Narrow symbol" currency="USD" locale="pt-BR" display="narrowSymbol" defaultValue={12.5} />
+        <CurrencyInput label="Name" currency="BRL" locale="pt-BR" display="name" defaultValue={2} />
       </Row>
     </Stack>
   );
@@ -42,13 +43,13 @@ function Demo() {
       view: () => (
         <Stack gap="sm">
           <Row fill align="start">
-            <CurrencyInput label="Symbol" currency="BRL" locale="pt-BR" groupMark fixedDecimals defaultValue={1249.9} />
-            <CurrencyInput label="Code" currency="BRL" locale="pt-BR" display="code" groupMark fixedDecimals defaultValue={1249.9} />
-            <CurrencyInput label="None" currency="BRL" locale="pt-BR" display="none" groupMark fixedDecimals defaultValue={1249.9} />
+            <CurrencyInput label="Symbol" currency="BRL" locale="pt-BR" groupMark defaultValue={1249.9} />
+            <CurrencyInput label="Code" currency="BRL" locale="pt-BR" display="code" groupMark defaultValue={1249.9} />
+            <CurrencyInput label="None" currency="BRL" locale="pt-BR" display="none" groupMark defaultValue={1249.9} />
           </Row>
           <Row fill align="start">
-            <CurrencyInput label="Narrow symbol" currency="USD" locale="pt-BR" display="narrowSymbol" fixedDecimals defaultValue={12.5} />
-            <CurrencyInput label="Name" currency="BRL" locale="pt-BR" display="name" fixedDecimals defaultValue={2} />
+            <CurrencyInput label="Narrow symbol" currency="USD" locale="pt-BR" display="narrowSymbol" defaultValue={12.5} />
+            <CurrencyInput label="Name" currency="BRL" locale="pt-BR" display="name" defaultValue={2} />
           </Row>
         </Stack>
       ),
@@ -62,8 +63,8 @@ function Demo() {
   return (
     <Stack gap="sm">
       <Row fill align="start">
-        <CurrencyInput label="en-US" currency="USD" locale="en-US" groupMark fixedDecimals value={price} onChange={v => $write(price, v)} />
-        <CurrencyInput label="de-DE" currency="EUR" locale="de-DE" groupMark fixedDecimals value={price} onChange={v => $write(price, v)} />
+        <CurrencyInput label="en-US" currency="USD" locale="en-US" groupMark value={price} onChange={v => $write(price, v)} />
+        <CurrencyInput label="de-DE" currency="EUR" locale="de-DE" groupMark value={price} onChange={v => $write(price, v)} />
         <CurrencyInput label="ja-JP, no decimals" currency="JPY" locale="ja-JP" groupMark value={price} onChange={v => $write(price, v)} />
       </Row>
       <Text size="sm" fg="quiet">{() => \`value: \${JSON.stringify($read(price))}\`}</Text>
@@ -76,8 +77,8 @@ function Demo() {
         return (
           <Stack gap="sm">
             <Row fill align="start">
-              <CurrencyInput label="en-US" currency="USD" locale="en-US" groupMark fixedDecimals value={price} onChange={set} />
-              <CurrencyInput label="de-DE" currency="EUR" locale="de-DE" groupMark fixedDecimals value={price} onChange={set} />
+              <CurrencyInput label="en-US" currency="USD" locale="en-US" groupMark value={price} onChange={set} />
+              <CurrencyInput label="de-DE" currency="EUR" locale="de-DE" groupMark value={price} onChange={set} />
               <CurrencyInput label="ja-JP, no decimals" currency="JPY" locale="ja-JP" groupMark value={price} onChange={set} />
             </Row>
             <Text size="sm" fg="quiet">

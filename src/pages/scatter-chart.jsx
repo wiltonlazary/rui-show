@@ -13,7 +13,7 @@ export default {
   props: [
     { name: 'data', type: '{ label, color, points: Record<string, number>[] }[]', description: 'The groups and their points.' },
     { name: 'category', type: '{ x: string, y: string }', description: 'The fields each point is placed by.' },
-    { name: 'xAxis / yAxis', type: 'boolean | { title, unit, format, domain, width }', default: 'true', description: 'The axes, or an axis’s options: its `title` (drawn along the axis, and the values’ name in the tooltip; the field otherwise), its own `unit` and `format`, its range, and the y axis’s width (theme.chart.axisWidth, 56).' },
+    { name: 'xAxis / yAxis', type: 'boolean | { title, unit, format, domain, width }', default: 'true', description: 'The axes, or an axis’s options: its `title` (drawn along the axis, and the values’ name in the tooltip; the field otherwise), its own `unit` and `format`, its range, and the y axis’s width: as wide as its tick labels, theme.chart.axisWidth at least and theme.chart.axisShare of the chart at most (a longer label cut with …), a given `width` as given.' },
     { name: 'unit / format', type: 'string / (value) => string', description: 'How the values read on both axes, where an axis has none of its own.' },
     { name: 'grid / ticks / dash', type: "'rows' | 'columns' | 'both' | false / 'x' | 'y' | 'both' | false / string", default: "'rows' / false / '4 2'", description: 'The grid lines, the axes’ tick marks, and the grid’s dash.' },
     { name: 'gridColor', type: 'string', default: 'the page’s border, muted', description: 'The grid’s color.' },

@@ -27,7 +27,7 @@ export default {
     { name: 'sizeKey', type: 'string', default: 'valueKey', description: 'The field that sets each bubble’s area.' },
     { name: 'range', type: '[number, number]', default: '[24, 400]', description: 'The bubbles’ least and greatest areas (px²).' },
     { name: 'label', type: 'string', description: 'The value’s name, over the value axis and in the tooltip.' },
-    { name: 'yAxis', type: 'boolean | { width, domain }', default: 'true ({ width: chart.axisWidth })', description: 'The value axis’s ticks and label; `false` hides them.' },
+    { name: 'yAxis', type: 'boolean | { width, domain }', default: 'true', description: 'The value axis’s ticks and label; `false` hides them. Its width: as wide as its tick labels, `chart.axisWidth` at least and `chart.axisShare` of the chart at most (a longer label cut with …), a given `width` as given.' },
     { name: 'color', type: 'string', default: 'theme.accent', description: 'The bubbles’ color.' },
     { name: 'unit', type: 'string', description: 'Put after each value on the axis and in the tooltip.' },
     { name: 'format', type: '(value) => string', description: 'How the values read on the axis and in the tooltip.' },

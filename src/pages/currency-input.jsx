@@ -16,7 +16,7 @@ export default {
     { name: 'display', type: "'symbol' | 'narrowSymbol' | 'code' | 'name' | 'none'", default: "'symbol'", description: 'How the currency shows: R$, $, BRL, reais brasileiros, or nothing. A name follows the amount (1 real, 2 reais).' },
     { name: 'locale', type: 'string', default: 'the platform’s', description: 'A BCP 47 tag (`pt-BR`): the currency’s side and spacing, and the group and decimal marks.' },
     { name: 'decimals', type: 'number', default: 'the currency’s', description: 'The most decimal digits: 2 for BRL, USD and EUR, 0 for JPY.' },
-    { name: 'fixedDecimals', type: 'boolean', default: 'true', description: 'The decimals always written out (R$ 12,50); false: as the number is (R$ 12,5).' },
+    { name: 'fixedDecimals', type: 'boolean', default: 'true', description: 'The decimals written out at rest (R$ 12,50), as typed until blur or Enter; false: as the number is (R$ 12,5).' },
     { name: 'NumberInput props', type: 'value, onChange, min, max, step, groupMark, …', description: 'As NumberInput; the currency sets `prefix` and `suffix`.' },
     { name: 'currencyAffixes(currency, locale, display, amount?)', type: '{ prefix, suffix }', description: 'The text the locale writes before and after an amount (`amount`, 2 by default, picks a name’s plural), its spaces included.' },
     { name: 'currencyDecimals(currency)', type: 'number', description: 'How many decimals the currency takes.' },

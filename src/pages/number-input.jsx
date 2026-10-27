@@ -21,7 +21,7 @@ export default {
     { name: 'negative', type: 'boolean', default: 'true', description: 'Accepts a minus sign; false also floors the value, its steps and aria-valuemin at 0.' },
     { name: 'decimal', type: 'boolean', default: 'true', description: 'Accepts a decimal part.' },
     { name: 'decimals', type: 'number', description: 'The most decimal digits (0 disallows decimals).' },
-    { name: 'fixedDecimals', type: 'boolean', default: 'false', description: 'Always shows `decimals` digits.' },
+    { name: 'fixedDecimals', type: 'boolean', default: 'false', description: 'Shows `decimals` digits at rest, as typed until blur or Enter.' },
     { name: 'prefix', type: 'string', description: 'Shown before the number.' },
     { name: 'suffix', type: 'string', description: 'Shown after the number.' },
     { name: 'locale', type: 'string', default: 'the platform’s', description: 'A BCP 47 tag (\'de-DE\'): where the default marks come from.' },

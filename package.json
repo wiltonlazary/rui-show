@@ -1,6 +1,6 @@
 {
   "name": "rui-show",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "rui-core's documentation and live showcase: a page per component with its props and demos, each demo live on the DOM (ren-dom), Skia (ren-skia) and three.js (ren-three).",
   "type": "module",
   "private": true,

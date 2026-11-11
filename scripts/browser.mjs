@@ -13,7 +13,9 @@
 // pages in a Drawer that choosing one closes. The keyboard's Tab reaches the
 // skip link first and its Enter focuses the main region. Real drags on the DOM, as a
 // hand makes them (CDP input): a mouse swipe over a Carousel's image moves
-// it (no native image drag takes the pointer), and a touch drag moves a Slider
+// it (no native image drag takes the pointer), a mouse drag of a Sortable's
+// handle moves its item (one change told, no text selected, the focus on the
+// handle), and a touch drag moves a Slider and a Sortable's item
 // on the DOM, and on Skia and the three.js overlay keeps the touch (no
 // pointercancel, no pan); a right press on the
 // ContextMenu demo opens the app's own menu on the DOM and cancels the
@@ -635,6 +637,8 @@ try {
       };
       // The picture carousel: a swipe over its image moves it to the next slide.
       await gesture('carousel', '[aria-roledescription="carousel"] img', -250, 0, false, `() => document.querySelector('[data-page]').innerText.includes('slide 2 / 5') ? 'slide 2 / 5' : undefined`);
+      // The Sortable's first row dragged down by its handle: one change told, no text selected on the way, the focus on its handle.
+      await gesture('sortable', '[aria-label="Reorder Home"]', 0, 110, false, `() => document.querySelector('[data-page]').innerText.includes('Home: from place 1 to') && String(getSelection()) === '' && document.activeElement?.getAttribute('aria-label') === 'Reorder Home' && 'moved, nothing selected, the handle focused'`);
       // A right press on the ContextMenu demo, on the DOM and each canvas: the app's menu, never the browser's over it.
       if (pages.includes('context-menu'))
         for (const renderer of renderers.filter(r => r !== 'panel')) {
@@ -668,6 +672,9 @@ try {
       await gesture('slider', '[role="slider"]', 60, 30, true, `() => { const v = document.querySelector('[data-page] [data-demo] [role="slider"]').getAttribute('aria-valuenow'); return v !== '40' && ruiCheck.still() && 'at ' + v; }`);
       // The same on the canvases: the Slider's touchAction keeps the touch (no pointercancel, no pan).
       for (const renderer of ['skia', 'three']) await gesture('slider', '[role="slider"]', 60, 30, true, `() => ruiCheck.still() && 'kept, the page still'`, renderer);
+      // A touch drag of a Sortable's handle moves its item on the DOM, the page still; the canvases keep the touch.
+      await gesture('sortable', '[aria-label="Reorder Home"]', 0, 110, true, `() => document.querySelector('[data-page]').innerText.includes('Home: from place 1 to') && ruiCheck.still() && 'moved, the page still'`);
+      for (const renderer of ['skia', 'three']) await gesture('sortable', '[aria-label="Reorder Home"]', 0, 110, true, `() => ruiCheck.still() && 'kept, the page still'`, renderer);
       await cdp.send('Emulation.clearDeviceMetricsOverride');
       cdp.close();
     } finally {

@@ -144,7 +144,7 @@ function Demo() {
 | Wayfinding | Breadcrumbs, ContextMenu, Launcher, Menu, Menubar, NavItem, Onboarding, Outline, Pagination, Stepper, Tabs, Tree |
 | Layers | ActionBar, Backdrop, Busy, Dialog, Drawer, Floater, Glider, HoverCard, Modal, Modals, Pin, Popover, Tooltip, Window |
 | Status | Alert, Arc, EmptyState, Led, LoadBar, Loader, Notification, Notifications, Progress, Ring, Rings, Skeleton, Spinner |
-| Data | Accordion, Avatar, Badge, Book, Card, Carousel, Collapse, Compare, Cover, DataList, DataTable, Dot, Excerpt, Flip, IconBox, Image, JsonTree, OverflowList, Parallax, QrCode, Swatch, Table, Timeline |
+| Data | Accordion, Avatar, Badge, Book, Card, Carousel, Collapse, Compare, Cover, DataList, DataTable, Dot, Excerpt, Flip, IconBox, Image, JsonTree, OverflowList, Parallax, QrCode, Sortable, Swatch, Table, Timeline |
 | Charts | AreaChart, BarChart, Bars, BubbleChart, DonutChart, FunnelChart, Heatmap, LineChart, MixedChart, PieChart, RadarChart, RadialBarChart, ScatterChart, Sparkline |
 | Forms | $form, Validators |
 | Behavior | $counter, $debounced, $history, $hover, $idle, $interval, $list, $localStorage, $move, $open, $outside, $pages, $shortcuts, $toggle, FocusTrap, Marquee, Platform hooks, State hooks, Transition, VisuallyHidden |
